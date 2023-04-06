@@ -1,7 +1,8 @@
 version: '2.1'
 services:
   trilium:
-    image: zadam/trilium
+    #    image: zadam/trilium
+    build: .
     restart: always
     environment:
       - TRILIUM_DATA_DIR=/home/node/trilium-data
