@@ -312,11 +312,12 @@ ${markdownContent}`;
             let content = prepareContent(noteMeta.title, note.getContent(), noteMeta);
 	
 	    if (noteMeta.dataFileName.endsWith(".md")) {
-                const attributes = note.getOwnedAttributes().map(attribute => (
+                const attributes = noteMeta.attributes.map(attribute => (
                     attribute.name + ": " + attribute.value
                 ));
+		noteMeta.attributes = [];
 
-		if (noteMeta.title)
+		if (noteMeta.title && (noteMeta.dataFileName !== noteMeta.title + ".md"))
                     attributes.unshift("title: " + noteMeta.title);
 
 	        if(attributes.length > 0)
