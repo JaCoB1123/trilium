@@ -3,7 +3,6 @@ services:
   trilium:
     #    image: zadam/trilium
     build: .
-    restart: always
     environment:
       - TRILIUM_DATA_DIR=/home/node/trilium-data
     ports:
