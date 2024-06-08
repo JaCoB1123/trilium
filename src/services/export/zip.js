@@ -309,7 +309,19 @@ ${markdownContent}`;
         notePaths[note.noteId] = filePathPrefix + (noteMeta.dataFileName || noteMeta.dirFileName);
 
         if (noteMeta.dataFileName) {
-            const content = prepareContent(noteMeta.title, note.getContent(), noteMeta);
+            let content = prepareContent(noteMeta.title, note.getContent(), noteMeta);
+	
+	    if (noteMeta.dataFileName.endsWith(".md")) {
+                const attributes = note.getOwnedAttributes().map(attribute => (
+                    attribute.name + ": " + attribute.value
+                ));
+
+		if (noteMeta.title)
+                    attributes.unshift("title: " + noteMeta.title);
+
+	        if(attributes.length > 0)
+	            content = "---\n"+attributes.reduce((acc, curr) => acc + "\n" + curr) + "\n---\n\n" + content;
+	    }
 
             archive.append(content, {
                 name: filePathPrefix + noteMeta.dataFileName,
